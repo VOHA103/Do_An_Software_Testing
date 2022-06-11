@@ -1,0 +1,243 @@
+﻿@{
+    ViewBag.Title = "Login1";
+    Layout = null;
+}
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <!--Made with love by Mutiullah Samim -->
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="~/assets/img/iconCua24.jpg" rel="icon">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!--Custom styles-->
+    @*<link rel="stylesheet" type="text/css" href="styles.css">*@
+    <style>
+        /* Made with love by Mutiullah Samim*/
+        html, body {
+            background-image: url('../../assets/img/iconCua24.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif;
+        }
+
+        .container {
+            height: 100%;
+            align-content: center;
+        }
+
+        .card {
+            height: 370px;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 400px;
+            background-color: rgba(0,0,0,0.2) !important;
+        }
+
+        .social_icon span {
+            font-size: 60px;
+            margin-left: 10px;
+            color: #FFC312;
+        }
+
+            .social_icon span:hover {
+                color: white;
+                cursor: pointer;
+            }
+
+        .card-header h3 {
+            color: white;
+        }
+
+        .social_icon {
+            position: absolute;
+            right: 20px;
+            top: -45px;
+        }
+
+        .input-group-prepend span {
+            width: 50px;
+            background-color: #FFC312;
+            color: black;
+            border: 0 !important;
+        }
+
+        input:focus {
+            outline: 0 0 0 0 !important;
+            box-shadow: 0 0 0 0 !important;
+        }
+
+        .remember {
+            color: white;
+        }
+
+            .remember input {
+                width: 20px;
+                height: 20px;
+                margin-left: 15px;
+                margin-right: 5px;
+            }
+
+        .login_btn {
+            color: black;
+            background-color: #FFC312;
+            width: 100px;
+        }
+
+            .login_btn:hover {
+                color: black;
+                background-color: white;
+            }
+
+        .links {
+            color: white;
+        }
+
+            .links a {
+                margin-left: 4px;
+            }
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="text-align:center">Sign In</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        @*<span><i class="fab fa-facebook-square"></i></span>
+                            <span><i class="fab fa-google-plus-square"></i></span>
+                            <span><i class="fab fa-twitter-square"></i></span>*@
+                    </div>
+                </div>
+                <div class="card-body">
+                    @*<div class="mb-3 mt-3">
+                            <label for="uname" class="form-label">Username:</label>
+                            <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>*@
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend mb-3 mt-3">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        @*<input type="text" name="Username" class="form-control" placeholder="username">*@
+                        <div class="mb-3 mt-3" style="width:300px">
+                            <input type="text" class="form-control" id="Username" placeholder="Enter username" name="Username">
+                            @*   <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>*@
+                        </div>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend mb-3 mt-3">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        @*<input type="password" name="Password" class="form-control" placeholder="password">*@
+                        <div class="mb-3 mt-3" style="width:300px">
+                            <input type="password" name="Password" class="form-control" id="Password" placeholder="Enter password" required>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center remember">
+                        <input type="checkbox">Remember Me
+                    </div>
+                    <div class="form-group">
+                        <button id="submit" class="btn float-right login_btn">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        Don't have an account?<a href="~/Accounts/Create">Sign Up</a>
+                    </div>
+                    @*<div class="d-flex justify-content-center links">
+                            Do you want go to Home ?<a href="~/Products/Index2#hero">Home</a>
+                        </div>*@
+                    <div class="d-flex justify-content-center">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/assets/js/iziToast.min.js"></script>
+
+<script>
+    $(function () {
+        function dangNhap(taiKhoan, matKhau) {
+            $.ajax({
+                url: "/Accounts/XuLyDangNhap",
+                data: JSON.stringify({ taiKhoan, matKhau }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.status) {
+                        window.location.href = data.url;
+                    }
+                    else {
+                        iziToast.warning({
+                            timeout: 1500,
+                            title: 'Lỗi',
+                            message: data.message,
+                            position: 'topRight'
+                        });
+                    }
+
+                },
+                error: function (data) {
+                    iziToast.warning({
+                        timeout: 1500,
+                        title: 'Lỗi',
+                        message: 'Loi chua xac dinh',
+                        position: 'topRight'
+                    });
+                }
+
+            });
+        }
+        $('#submit').click(function () {
+            let valueu = $('#Username').val();
+            let valuep = $('#Password').val();
+
+            if (valuep === '' && valueu === '') {
+                iziToast.error(
+                    {
+                        timeout: 2000,
+                        title: 'Loi',
+                        message: 'Tai khoan không được rỗng.',
+                        position: 'topRight'
+                    });
+                return;
+            }
+            if (valueu === '' || valuep === '') {
+                iziToast.error(
+                    {
+                        timeout: 2000,
+                        title: 'Loi',
+                        message: 'Mật khẩu không được rỗng.',
+                        position: 'topRight'
+                    });
+                return;
+            }
+            dangNhap(valueu, valuep);
+        })
+    });
+</script>
+</html>

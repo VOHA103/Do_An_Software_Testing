@@ -1,0 +1,148 @@
+﻿@model DoAnKiemDinhPhanMem.Models.email
+@{
+    ViewBag.Title = "QuenMatKhau";
+    Layout = null;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style>
+        .form-gap {
+            padding-top: 70px;
+        }
+
+        .single-line {
+            width: 257px;
+            height: 33px;
+        }
+
+        body {
+            background-image: url(../img/user/backgrond.jpg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-gap"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default" style="background-color:rgba(250,250,250,0.5)">
+                    <div class="panel-body">
+                        <div class="text-center">
+                            <h3><i class="fa fa-lock fa-4x"></i></h3>
+                            <h2 class="text-center">Điền Thông Tin</h2>
+                            <p>Vui Lòng Nhập Mail Nhận Hàng</p>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-envelope color-blue">
+                                            </i>
+                                        </span>
+                                        @Html.EditorFor(x => x.mail, new { HtmlAttribute = new { @type = "email", @placeholder = "email address", } })
+                                        @*<input type="submit" value="Nhận Mã" />*@
+                                        @*<input id="email" name="email" placeholder="email address" class="form-control" type="email">*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-lg btn-primary btn-block" id="btn-send">Send</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+<script src="~/assets/js/iziToast.min.js"></script>
+<script>
+        $(function () {
+            var string = '@Session["QMK"]';
+        if (string != "") {
+            alert(string)
+            @{Session["QMK"] = null;}
+            }
+        })
+    $(function () {
+        function validateEmail(emailAddress) {
+            var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+            var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+            var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+            var sQuotedPair = '\\x5c[\\x00-\\x7f]';
+            var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
+            var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
+            var sDomain_ref = sAtom;
+            var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
+            var sWord = '(' + sAtom + '|' + sQuotedString + ')';
+            var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
+            var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
+            var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
+            var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
+            var reValidEmail = new RegExp(sValidEmail);
+            return reValidEmail.test(emailAddress);
+        }
+        function sendMail(mail) {
+            $.ajax({
+                url: "/Carts/SendMail",
+                data: JSON.stringify({ mail }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.status) {
+                        iziToast.success({
+                            timeout: 1500,
+                            title: 'Thành công',
+                            message: data.message,
+                            position: 'topRight'
+                        });
+                        //window.location.href = data.url;
+                    }
+                    else {
+                        iziToast.warning({
+                            timeout: 1500,
+                            title: 'Lỗi',
+                            message: data.message,
+                            position: 'topRight'
+                        });
+                    }
+                },
+
+            });
+        }
+        $('#btn-send').click(function () {
+            let mail = $('#mail').val();
+            if (mail == "")
+                iziToast.warning({
+                    timeout: 1500,
+                    title: 'Lỗi',
+                    message: "Email rỗng",
+                    position: 'topRight'
+                }); else {
+                if (!validateEmail(mail) ) {
+                        iziToast.warning({
+                            timeout: 1500,
+                            title: 'Lỗi',
+                            message: "Email lỗi",
+                            position: 'topRight'
+                        });
+                    }
+                    else
+                        sendMail(mail);
+            }
+
+        })
+    })
+</script>
+</html>
+

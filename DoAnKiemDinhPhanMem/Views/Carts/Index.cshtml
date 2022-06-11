@@ -1,0 +1,108 @@
+﻿@model List<DoAnKiemDinhPhanMem.Models.CartItem>
+@using DoAnKiemDinhPhanMem.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        table img {
+            width: 100px
+        }
+    </style>
+</head>
+<body>
+    <section id="hero" style="background-image: url('../../assets/img/iconCua24.jpg');">
+        <div class="hero-container" data-aos="zoom-in" data-aos-delay="100" style="background: rgba(255,255,255,0.1)">
+            @if (Model.Count > 0)
+            {
+                <table class="table table-drak">
+                    <thead style="margin-left:auto">
+                        <tr>
+                            <th>
+                                Tên Sản Phẩm
+                            </th>
+                            <th>
+                                Giá Tiền
+                            </th>
+                            <th>
+                                Ảnh
+                            </th>
+                            <th>
+                                Số Lượng
+                            </th>
+                            <th>
+                                Sise
+                            </th>
+                            <th>
+                                Tổng Tiền
+                            </th>
+                            <th>
+                                Xóa
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td>@i.product.Productname</td>
+                                <td>@DoAnKiemDinhPhanMem.Models.User.convertVND(i.product.Price.ToString())</td>
+                                <td>
+                                    <img style="width:50px;height:50px" src="~/img/shoe/@i.product.Image" />
+                                </td>
+                                <td>
+                                    <form action="~/Carts/UpdateItem" method="post" id="frm_">
+                                        <input type="hidden" value="@i.product.Id" name="ProductId" />
+                                        <input type="number" value="@i.Quantity" min="0" max="10" name="Quantity" />
+                                        <input type="button" value="update" onclick="this.parentNode.submit()" />
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Carts/UpdateSize" method="post" id="frm_">
+                                        <input type="hidden" value="@i.product.Id" name="ProductId" />
+                                        <input type="number" value="@i.product.Size" min="0" max="10" name="Size" />
+                                        <input type="button" value="update" onclick="this.parentNode.submit()" />
+                                    </form>
+                                </td>
+                                <td>
+                                    @DoAnKiemDinhPhanMem.Models.User.convertVND((i.product.Price * i.Quantity).ToString())
+                                </td>
+                                <td>
+                                    <h1><a href="~/Carts/DeleteItem?Id=@i.product.Id" class="btn btn-info" role="button"> Xóa</a></h1>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <strong id="summoney" class="text-danger">Tổng tiền @Model.Sum(x => x.Quantity * x.product.Price)</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div style="margin-left: 15%">
+                    <br />
+                    <a href="~/Products/Index3#portfolio" class="btn btn-info">Tiếp Mục Mua Hàng</a> |
+                    <a href="~/Carts/NhapMail" class="btn btn-info">Thanh Toán</a>
+                    <br />
+                    <br />
+                </div>
+            }
+            else
+            {
+                <div class="container" style="text-align:center">
+                    <h1><a href="~/Products/Index3" class="btn btn-info" role="button">Mua Sắm</a></h1>
+                </div>
+
+            }
+        </div>
+    </section>
+</body>
+</html>

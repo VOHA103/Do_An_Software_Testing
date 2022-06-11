@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DoAnKiemDinhPhanMem.Models.Products>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <main id="main">
+        @*======= Hero Section =======*@
+        @*<section id="hero" style="background-image: url('../../assets/img/iconCua24.jpg');">
+                <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
+                    <h1>Welcome to CuaSneaker</h1>
+                    <a href="#portfolio" class="btn-get-started">Get Started</a>
+                </div>
+            </section>*@ @*End Hero Section*@
+            @section Search{
+                @using (Html.BeginForm())
+                {
+                    <form class="d-flex" action="~/Products/Admin" method="post">
+                        @Html.TextBox("searchString")
+                        <input type="submit" name="btnSearch" class="btn btn-success " value="Search">
+                    </form>
+                }
+            }
+            <section id="portfolio" class="portfolio" style="margin-top:100px">
+                <div class="container" data-aos="fade-up">
+                    <div class="section-header">
+                        <h3 class="section-title">Products CuaSneaker</h3>
+                        <p class="section-description"></p>
+                    </div>
+                </div>
+                <div class="row lst-products portfolio-container" id="card-group1" data-aos="fade-up" data-aos-delay="200">
+                    @foreach (var item in Model)
+                    {
+                        <a href="~/Products/Details?id=@item.Id">
+                            <div class="card-body text-center col-lg-3 mt-1 mb-1 col-md-4 col-md-6 col-sm-12 col-lg-4 col-md-6 portfolio-item filter-app" style=" margin-right: 0px;">
+                                <img class="img-fluid" style="border-radius: 10px;width:450px;height:500px" src="/img/shoe/@Html.DisplayFor(modelItem => item.Image)" alt="">
+                                <div class="portfolio-info" style="border-radius: 10px; width: auto;margin:auto;margin-bottom:50px ;background:rgba(0,0,0,0.5)">
+                                    <br /><h4>@Html.DisplayFor(modelItem => item.Productname)</h4>
+                                    <p>Giá : @Html.DisplayFor(modelItem => item.Price)<u>đ</u></p>
+                                    <p>Màu : @Html.DisplayFor(modelItem => item.Color)</p>
+                                    <div class="card-body text-primary">
+                                        <h4>
+                                            <form action="~/Carts/AddItem">
+                                                <input type="hidden" name="ProductId" value="@item.Id" />
+                                                <input type="hidden" name="Quantity" value="1" />
+                                                <button class="btn btn-light" style="font-size:15px">MUA NGAY</button>
+                                            </form>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </section>
+        </main>
+    </body>
